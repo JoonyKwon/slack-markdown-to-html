@@ -1,0 +1,124 @@
+{
+  "name": "slack-hawk-down",
+  "version": "0.5.3",
+  "description": "Render Slack flavored markdown as HTML",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "update-emoji": "node scripts/updateEmoji.js",
+    "build": "yarn update-emoji && yarn build:babel && yarn build:browserify",
+    "build:babel": "babel src --out-dir dist --extensions .js,.ts",
+    "build:browserify": "browserify dist/index.js --standalone slack-hawk-down -o dist/bundle.js",
+    "test": "yarn run update-emoji && node_modules/.bin/mocha --require @babel/register",
+    "eslint": "eslint --ext js,ts src/",
+    "prepublish": "yarn run eslint && yarn run test && yarn run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alechoey/slack-hawk-down.git"
+  },
+  "keywords": [
+    "slack",
+    "markdown"
+  ],
+  "author": "Alec Hoey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alechoey/slack-hawk-down/issues"
+  },
+  "homepage": "https://github.com/alechoey/slack-hawk-down#readme",
+  "dependencies": {
+    "xregexp": "^4.2.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/node": "^7.6.2",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-typescript": "^7.6.0",
+    "@babel/register": "^7.6.2",
+    "babel-eslint": "^10.0.3",
+    "babel-preset-minify": "^0.5.1",
+    "browserify": "^16.5.0",
+    "chai": "^4.2.0",
+    "emoji-datasource": "^4.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-babel": "^9.0.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "husky": "^3.0.8",
+    "mocha": "^6.2.1",
+    "prettier-eslint": "^9.0.0",
+    "yarn": "^1.16.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "env": {
+      "browser": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "settings": {
+      "import/resolver": "node"
+    },
+    "globals": {
+      "_": true
+    },
+    "rules": {
+      "comma-dangle": 0,
+      "global-require": 0,
+      "max-len": 0,
+      "import/no-mutable-exports": 0,
+      "arrow-body-style": 0,
+      "no-return-assign": 0,
+      "object-shorthand": 0,
+      "newline-per-chained-call": 0,
+      "new-cap": 0,
+      "no-multi-spaces": 0,
+      "no-mixed-operators": 0,
+      "arrow-parens": [
+        2,
+        "always"
+      ],
+      "semi": [
+        2,
+        "never"
+      ],
+      "quotes": [
+        2,
+        "single"
+      ],
+      "no-console": [
+        1,
+        {
+          "allow": [
+            "warn",
+            "error"
+          ]
+        }
+      ],
+      "no-param-reassign": [
+        2,
+        {
+          "props": false
+        }
+      ],
+      "no-continue": 0
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run eslint"
+    }
+  }
+}
