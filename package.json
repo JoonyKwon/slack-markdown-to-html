@@ -1,5 +1,5 @@
 {
-  "name": "slack-markdown-to-html",
+  "name": "@joonykwon/slack-markdown-to-html",
   "version": "0.0.1",
   "description": "Render Slack flavored markdown as HTML",
   "main": "dist/bundle.js",
