@@ -1,20 +1,20 @@
 {
-  "name": "slack-hawk-down",
-  "version": "0.5.3",
+  "name": "slack-markdown-to-html",
+  "version": "0.0.1",
   "description": "Render Slack flavored markdown as HTML",
   "main": "dist/bundle.js",
   "scripts": {
     "update-emoji": "node scripts/updateEmoji.js",
     "build": "yarn update-emoji && yarn build:babel && yarn build:browserify",
     "build:babel": "babel src --out-dir dist --extensions .js,.ts",
-    "build:browserify": "browserify dist/index.js --standalone slack-hawk-down -o dist/bundle.js",
+    "build:browserify": "browserify dist/index.js --standalone slack-markdown-to-html -o dist/bundle.js",
     "test": "yarn run update-emoji && node_modules/.bin/mocha --require @babel/register",
     "eslint": "eslint --ext js,ts src/",
     "prepublish": "yarn run eslint && yarn run test && yarn run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alechoey/slack-hawk-down.git"
+    "url": "git+https://github.com/JoonyKwon/slack-markdown-to-html.git"
   },
   "keywords": [
     "slack",
@@ -23,9 +23,9 @@
   "author": "Alec Hoey",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alechoey/slack-hawk-down/issues"
+    "url": "https://github.com/JoonyKwon/slack-markdown-to-html/issues"
   },
-  "homepage": "https://github.com/alechoey/slack-hawk-down#readme",
+  "homepage": "https://github.com/JoonyKwon/slack-markdown-to-html#readme",
   "dependencies": {
     "xregexp": "^4.2.4"
   },
@@ -42,7 +42,7 @@
     "babel-preset-minify": "^0.5.1",
     "browserify": "^16.5.0",
     "chai": "^4.2.0",
-    "emoji-datasource": "^4.0.3",
+    "emoji-datasource": "^14.0.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-babel": "^9.0.0",
@@ -53,6 +53,7 @@
     "eslint-plugin-react": "^7.16.0",
     "husky": "^3.0.8",
     "mocha": "^6.2.1",
+    "prettier": "^2.6.1",
     "prettier-eslint": "^9.0.0",
     "yarn": "^1.16.0"
   },

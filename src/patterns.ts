@@ -15,12 +15,12 @@ export const lineBreakTagLiteral = '<br />';
 export const newlinePattern = new XRegExp('\\n', 'g');
 // https://api.slack.com/docs/message-formatting
 export const userMentionPattern = new XRegExp(
-  '<@(((?<userID>U[^|>]+)(\\|(?<userName>[^>]+))?)|(?<userNameWithoutID>[^>]+))>',
-  'ng',
+    '<@(((?<userID>U[^|>]+)(\\|(?<userName>[^>]+))?)|(?<userNameWithoutID>[^>]+))>',
+    'ng',
 );
 export const channelMentionPattern = new XRegExp(
-  '<#(((?<channelID>C[^|>]+)(\\|(?<channelName>[^>]+))?)|(?<channelNameWithoutID>[^>]+))>',
-  'ng',
+    '<#(((?<channelID>C[^|>]+)(\\|(?<channelName>[^>]+))?)|(?<channelNameWithoutID>[^>]+))>',
+    'ng',
 );
 export const linkPattern = new XRegExp('<(?<linkUrl>https?:[^|>]+)(\\|(?<linkHtml>[^>]+))?>', 'ng');
 export const mailToPattern = new XRegExp('<mailto:(?<mailTo>[^|>]+)(\\|(?<mailToName>[^>]+))?>', 'ng');
@@ -31,21 +31,21 @@ export const emojiPattern = new XRegExp(':(?<key>[^\\s,:]+):', 'ng');
 export const emojiAliasPattern = new XRegExp('^alias:(?<aliasName>\\S+)$', 'n');
 
 const buildOpeningDelimiterRegExp = (delimiter: string, options: IPatternOptions = {}) => {
-  const anchorPattern = '(?<=^|\\n)';
-  const noAlphaNumericPadPattern = '(?<=^|[^A-Za-z0-9])';
-  const noQuoteOrAlphaPadPattern = options.noQuotePad ? "(?<=^|[^'`A-Za-z0-9])" : noAlphaNumericPadPattern;
-  const openingWhitespacePattern = options.openingWhitespace ? '(?<openingCapturedWhitespace>^|\\s*)' : '';
-  const characterPadPattern = options.allowCharacterPad ? '' : noQuoteOrAlphaPadPattern;
-  const startPattern = options.startAnchored ? anchorPattern : characterPadPattern;
-  return new XRegExp(`${startPattern}${delimiter}${openingWhitespacePattern}(?=\\S)`, 'n');
+    const anchorPattern = '(?<=^|\\n)';
+    const noAlphaNumericPadPattern = '(?<=^|[^A-Za-z0-9])';
+    const noQuoteOrAlphaPadPattern = options.noQuotePad ? "(?<=^|[^'`A-Za-z0-9])" : noAlphaNumericPadPattern;
+    const openingWhitespacePattern = options.openingWhitespace ? '(?<openingCapturedWhitespace>^|\\s*)' : '';
+    const characterPadPattern = options.allowCharacterPad ? '' : noQuoteOrAlphaPadPattern;
+    const startPattern = options.startAnchored ? anchorPattern : characterPadPattern;
+    return new XRegExp(`${startPattern}${delimiter}${openingWhitespacePattern}(?=\\S)`, 'n');
 };
 
 const buildClosingDelimiterRegExp = (delimiter: string, options: IPatternOptions = {}) => {
-  const closingWhitespacePattern = options.closingWhitespace ? '(?<closingCapturedWhitespace>\\s*)' : '';
-  const noAlphaNumericPadPattern = '(?=$|[^A-Za-z0-9])';
-  const noQuoteOrAlphaPadPattern = options.noQuotePad ? "(?=$|[^'`A-Za-z0-9])" : noAlphaNumericPadPattern;
-  const endPattern = options.allowCharacterPad ? '' : noQuoteOrAlphaPadPattern;
-  return new XRegExp(`(?<=\\S)${closingWhitespacePattern}${delimiter}${endPattern}`, 'n');
+    const closingWhitespacePattern = options.closingWhitespace ? '(?<closingCapturedWhitespace>\\s*)' : '';
+    const noAlphaNumericPadPattern = '(?=$|[^A-Za-z0-9])';
+    const noQuoteOrAlphaPadPattern = options.noQuotePad ? "(?=$|[^'`A-Za-z0-9])" : noAlphaNumericPadPattern;
+    const endPattern = options.allowCharacterPad ? '' : noQuoteOrAlphaPadPattern;
+    return new XRegExp(`(?<=\\S)${closingWhitespacePattern}${delimiter}${endPattern}`, 'n');
 };
 
 export const blockCodeDelimiter = '```';
@@ -57,56 +57,56 @@ export const blockQuoteDelimiter = '&gt;&gt;&gt;';
 export const inlineQuoteDelimiter = '&gt;';
 
 export const blockCodeOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.escape(blockCodeDelimiter), {
-  noQuotePad: true,
-  openingWhitespace: true,
+    noQuotePad: true,
+    openingWhitespace: true,
 });
 
 export const blockCodeClosingPattern = buildClosingDelimiterRegExp(XRegExp.escape('```'), {
-  closingWhitespace: true,
-  noQuotePad: true,
+    closingWhitespace: true,
+    noQuotePad: true,
 });
 
 export const inlineCodeOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.escape(inlineCodeDelimiter), {
-  allowCharacterPad: true,
-  openingWhitespace: true,
+    allowCharacterPad: true,
+    openingWhitespace: true,
 });
 
 export const inlineCodeClosingPattern = buildClosingDelimiterRegExp(XRegExp.escape(inlineCodeDelimiter), {
-  allowCharacterPad: true,
-  noQuotePad: true,
-  closingWhitespace: true,
+    allowCharacterPad: true,
+    noQuotePad: true,
+    closingWhitespace: true,
 });
 
 export const boldOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.escape(boldDelimiter));
 
 export const boldClosingPattern = buildClosingDelimiterRegExp(XRegExp.escape(boldDelimiter), {
-  closingWhitespace: true,
+    closingWhitespace: true,
 });
 
 export const strikethroughOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.escape(strikethroughDelimiter), {
-  openingWhitespace: true,
+    openingWhitespace: true,
 });
 
 export const strikethroughClosingPattern = buildClosingDelimiterRegExp(XRegExp.escape(strikethroughDelimiter));
 
 export const italicOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.escape(italicDelimiter), {
-  openingWhitespace: true,
+    openingWhitespace: true,
 });
 
 export const italicClosingPattern = buildClosingDelimiterRegExp(XRegExp.escape(italicDelimiter), {
-  closingWhitespace: true,
+    closingWhitespace: true,
 });
 
 export const blockQuoteOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.escape(blockQuoteDelimiter), {
-  openingWhitespace: true,
-  startAnchored: true,
+    openingWhitespace: true,
+    startAnchored: true,
 });
 
 export const blockQuoteClosingPattern = new XRegExp('$');
 
 export const inlineQuoteOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.escape(inlineQuoteDelimiter), {
-  openingWhitespace: true,
-  startAnchored: true,
+    openingWhitespace: true,
+    startAnchored: true,
 });
 
 export const inlineQuoteClosingPattern = new XRegExp('\\n|$');
