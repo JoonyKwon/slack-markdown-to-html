@@ -1,3 +1,4 @@
+// @ts-ignore
 import XRegExp from 'xregexp';
 
 import {

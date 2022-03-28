@@ -1,16 +1,22 @@
+// @ts-ignore
 import XRegExp from 'xregexp';
 import { IPatternOptions } from './types';
 
 export const closingDivPatternString = '</div>';
 export const closingSpanPatternString = '</span>';
-export const codeDivOpeningPatternString = '<div class="slack_code">';
-export const codeSpanOpeningPatternString = '<span class="slack_code">';
-export const boldOpeningPatternString = '<span class="slack_bold">';
-export const strikethroughOpeningPatternString = '<span class="slack_strikethrough">';
-export const italicOpeningPatternString = '<span class="slack_italics">';
-export const blockDivOpeningPatternString = '<div class="slack_block">';
-export const blockSpanOpeningPatternString = '<span class="slack_block">';
-export const lineBreakTagLiteral = '<br />';
+export const codeDivOpeningPatternString = '<pre><code>';
+export const codeDivClosingPatternString = '</code></pre>';
+export const codeSpanOpeningPatternString = '<code>';
+export const codeSpanClosingPatternString = '</code>';
+export const boldOpeningPatternString = '<b>';
+export const boldClosingPatternString = '</b>';
+export const strikethroughOpeningPatternString = '<s>';
+export const strikethroughClosingPatternString = '</s>';
+export const italicOpeningPatternString = '<i>';
+export const italicClosingPatternString = '</i>';
+export const blockDivOpeningPatternString = '<blockquote>';
+export const blockDivClosingPatternString = '</blockquote>';
+export const lineBreakTagLiteral = '<br>';
 
 export const newlinePattern = new XRegExp('\\n', 'g');
 // https://api.slack.com/docs/message-formatting
@@ -53,8 +59,7 @@ export const inlineCodeDelimiter = '`';
 export const boldDelimiter = '*';
 export const strikethroughDelimiter = '~';
 export const italicDelimiter = '_';
-export const blockQuoteDelimiter = '&gt;&gt;&gt;';
-export const inlineQuoteDelimiter = '&gt;';
+export const blockQuoteDelimiter = '&gt;';
 
 export const blockCodeOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.escape(blockCodeDelimiter), {
     noQuotePad: true,
@@ -102,11 +107,4 @@ export const blockQuoteOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.esca
     startAnchored: true,
 });
 
-export const blockQuoteClosingPattern = new XRegExp('$');
-
-export const inlineQuoteOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.escape(inlineQuoteDelimiter), {
-    openingWhitespace: true,
-    startAnchored: true,
-});
-
-export const inlineQuoteClosingPattern = new XRegExp('\\n|$');
+export const blockQuoteClosingPattern = new XRegExp('\\n|$');

@@ -13,8 +13,13 @@
         "resolveJsonModule": true,
         "sourceMap": true,
         "strict": true,
-        "target": "es2022"
+        "target": "es2020"
     },
     "include": ["src/**/*", "test/**/*"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules"],
+    "ts-node": {
+        "compilerOptions": {
+            "module": "commonjs"
+        }
+    }
 }

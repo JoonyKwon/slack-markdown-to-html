@@ -1,3 +1,4 @@
+// @ts-ignore
 import XRegExp from 'xregexp';
 
 import * as Patterns from './patterns';
@@ -165,13 +166,12 @@ const replaceBlockCode = ({ text, maxReplacements, windows }: IReplacedText) =>
         Patterns.blockCodeOpeningPattern,
         Patterns.blockCodeClosingPattern,
         Patterns.codeDivOpeningPatternString,
-        Patterns.closingDivPatternString,
+        Patterns.codeDivClosingPatternString,
         windows,
         {
             disableNestedReplacement: true,
             maxReplacements,
             noQuotePad: true,
-            replaceNewlines: true,
         },
     );
 
@@ -182,7 +182,7 @@ const replaceCode = ({ text, maxReplacements, windows }: IReplacedText) =>
         Patterns.inlineCodeOpeningPattern,
         Patterns.inlineCodeClosingPattern,
         Patterns.codeSpanOpeningPatternString,
-        Patterns.closingSpanPatternString,
+        Patterns.codeSpanClosingPatternString,
         windows,
         {
             disableNestedReplacement: true,
@@ -198,7 +198,7 @@ const replaceBold = ({ text, maxReplacements, windows }: IReplacedText) =>
         Patterns.boldOpeningPattern,
         Patterns.boldClosingPattern,
         Patterns.boldOpeningPatternString,
-        Patterns.closingSpanPatternString,
+        Patterns.boldClosingPatternString,
         windows,
         {
             maxReplacements,
@@ -213,7 +213,7 @@ const replaceStrikethrough = ({ text, maxReplacements, windows }: IReplacedText)
         Patterns.strikethroughOpeningPattern,
         Patterns.strikethroughClosingPattern,
         Patterns.strikethroughOpeningPatternString,
-        Patterns.closingSpanPatternString,
+        Patterns.strikethroughClosingPatternString,
         windows,
         {
             maxReplacements,
@@ -228,7 +228,7 @@ const replaceItalic = ({ text, maxReplacements, windows }: IReplacedText) =>
         Patterns.italicOpeningPattern,
         Patterns.italicClosingPattern,
         Patterns.italicOpeningPatternString,
-        Patterns.closingSpanPatternString,
+        Patterns.italicClosingPatternString,
         windows,
         {
             maxReplacements,
@@ -236,14 +236,14 @@ const replaceItalic = ({ text, maxReplacements, windows }: IReplacedText) =>
         },
     );
 
-const replaceBlockQuote = ({ text, maxReplacements, windows }: IReplacedText) =>
-    replaceInWindows(
+const replaceBlockQuote = ({ text, maxReplacements, windows }: IReplacedText) => {
+    const result = replaceInWindows(
         text,
         Patterns.blockQuoteDelimiter,
         Patterns.blockQuoteOpeningPattern,
         Patterns.blockQuoteClosingPattern,
         Patterns.blockDivOpeningPatternString,
-        Patterns.closingDivPatternString,
+        Patterns.blockDivClosingPatternString,
         windows,
         {
             asymmetric: true,
@@ -252,35 +252,23 @@ const replaceBlockQuote = ({ text, maxReplacements, windows }: IReplacedText) =>
         },
     );
 
-const replaceQuote = ({ text, maxReplacements, windows }: IReplacedText) =>
-    replaceInWindows(
-        text,
-        Patterns.inlineQuoteDelimiter,
-        Patterns.inlineQuoteOpeningPattern,
-        Patterns.inlineQuoteClosingPattern,
-        Patterns.blockSpanOpeningPatternString,
-        Patterns.closingSpanPatternString,
-        windows,
-        {
-            asymmetric: true,
-            maxReplacements,
-        },
+    result.text = result.text.replace(
+        new RegExp(`${Patterns.blockDivClosingPatternString}(\n|)${Patterns.blockDivOpeningPatternString}`, 'g'),
+        Patterns.lineBreakTagLiteral,
     );
 
+    return result;
+};
+
 const replaceSlackdown = (text: string) => {
-    return [
-        replaceBlockCode,
-        replaceCode,
-        replaceBold,
-        replaceStrikethrough,
-        replaceItalic,
-        replaceBlockQuote,
-        replaceQuote,
-    ].reduce((acc, func) => func(acc), {
-        text,
-        maxReplacements: 100,
-        windows: [new ReplacementWindow(0, text.length - 1)],
-    }).text;
+    return [replaceBlockCode, replaceCode, replaceBold, replaceStrikethrough, replaceItalic, replaceBlockQuote].reduce(
+        (acc, func) => func(acc),
+        {
+            text,
+            maxReplacements: 100,
+            windows: [new ReplacementWindow(0, text.length - 1)],
+        },
+    ).text;
 };
 
 export default replaceSlackdown;
