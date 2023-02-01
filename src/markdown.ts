@@ -1,8 +1,7 @@
-// @ts-ignore
-import XRegExp from 'xregexp';
-
+import XRegExp from './xregexp';
 import * as Patterns from './patterns';
-import { IReplaceOptions, IReplacedText } from './types';
+
+import type { IReplaceOptions, IReplacedText } from './types';
 
 export class ReplacementWindow {
     start: number;

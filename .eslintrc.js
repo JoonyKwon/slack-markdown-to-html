@@ -24,7 +24,7 @@ module.exports = {
                 ts: 'never',
             },
         ],
-        'babel/new-cap': 1,
+        'babel/new-cap': 0,
         'babel/no-invalid-this': 1,
     },
 };

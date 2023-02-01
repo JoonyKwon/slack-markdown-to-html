@@ -1,6 +1,6 @@
 {
   "name": "@joonykwon/slack-markdown-to-html",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Render Slack flavored markdown as HTML",
   "main": "dist/bundle.js",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/JoonyKwon/slack-markdown-to-html#readme",
   "dependencies": {
-    "xregexp": "^4.2.4"
+    "xregexp": "^5.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",

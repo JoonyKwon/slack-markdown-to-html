@@ -1,6 +1,6 @@
-// @ts-ignore
-import XRegExp from 'xregexp';
-import { IPatternOptions } from './types';
+import XRegExp from './xregexp';
+
+import type { IPatternOptions } from './types';
 
 export const closingDivPatternString = '</div>';
 export const closingSpanPatternString = '</span>';
@@ -18,23 +18,23 @@ export const blockDivOpeningPatternString = '<blockquote>';
 export const blockDivClosingPatternString = '</blockquote>';
 export const lineBreakTagLiteral = '<br>';
 
-export const newlinePattern = new XRegExp('\\n', 'g');
+export const newlinePattern = XRegExp('\\n', 'g');
 // https://api.slack.com/docs/message-formatting
-export const userMentionPattern = new XRegExp(
+export const userMentionPattern = XRegExp(
     '<@(((?<userID>U[^|>]+)(\\|(?<userName>[^>]+))?)|(?<userNameWithoutID>[^>]+))>',
     'ng',
 );
-export const channelMentionPattern = new XRegExp(
+export const channelMentionPattern = XRegExp(
     '<#(((?<channelID>C[^|>]+)(\\|(?<channelName>[^>]+))?)|(?<channelNameWithoutID>[^>]+))>',
     'ng',
 );
-export const linkPattern = new XRegExp('<(?<linkUrl>https?:[^|>]+)(\\|(?<linkHtml>[^>]+))?>', 'ng');
-export const mailToPattern = new XRegExp('<mailto:(?<mailTo>[^|>]+)(\\|(?<mailToName>[^>]+))?>', 'ng');
-export const subteamCommandPattern = new XRegExp('<!subteam\\^(?<subteamID>S[^|>]+)(\\|(?<subteamName>[^>]+))?>', 'ng');
-export const commandPattern = new XRegExp('<!(?<commandLiteral>[^|>]+)(\\|(?<commandName>[^>]+))?>', 'ng');
+export const linkPattern = XRegExp('<(?<linkUrl>https?:[^|>]+)(\\|(?<linkHtml>[^>]+))?>', 'ng');
+export const mailToPattern = XRegExp('<mailto:(?<mailTo>[^|>]+)(\\|(?<mailToName>[^>]+))?>', 'ng');
+export const subteamCommandPattern = XRegExp('<!subteam\\^(?<subteamID>S[^|>]+)(\\|(?<subteamName>[^>]+))?>', 'ng');
+export const commandPattern = XRegExp('<!(?<commandLiteral>[^|>]+)(\\|(?<commandName>[^>]+))?>', 'ng');
 
-export const emojiPattern = new XRegExp(':(?<key>[^\\s,:]+):', 'ng');
-export const emojiAliasPattern = new XRegExp('^alias:(?<aliasName>\\S+)$', 'n');
+export const emojiPattern = XRegExp(':(?<key>[^\\s,:]+):', 'ng');
+export const emojiAliasPattern = XRegExp('^alias:(?<aliasName>\\S+)$', 'n');
 
 const buildOpeningDelimiterRegExp = (delimiter: string, options: IPatternOptions = {}) => {
     const anchorPattern = '(?<=^|\\n)';
@@ -43,7 +43,7 @@ const buildOpeningDelimiterRegExp = (delimiter: string, options: IPatternOptions
     const openingWhitespacePattern = options.openingWhitespace ? '(?<openingCapturedWhitespace>^|\\s*)' : '';
     const characterPadPattern = options.allowCharacterPad ? '' : noQuoteOrAlphaPadPattern;
     const startPattern = options.startAnchored ? anchorPattern : characterPadPattern;
-    return new XRegExp(`${startPattern}${delimiter}${openingWhitespacePattern}(?=\\S)`, 'n');
+    return XRegExp(`${startPattern}${delimiter}${openingWhitespacePattern}(?=\\S)`, 'n');
 };
 
 const buildClosingDelimiterRegExp = (delimiter: string, options: IPatternOptions = {}) => {
@@ -51,7 +51,7 @@ const buildClosingDelimiterRegExp = (delimiter: string, options: IPatternOptions
     const noAlphaNumericPadPattern = '(?=$|[^A-Za-z0-9])';
     const noQuoteOrAlphaPadPattern = options.noQuotePad ? "(?=$|[^'`A-Za-z0-9])" : noAlphaNumericPadPattern;
     const endPattern = options.allowCharacterPad ? '' : noQuoteOrAlphaPadPattern;
-    return new XRegExp(`(?<=\\S)${closingWhitespacePattern}${delimiter}${endPattern}`, 'n');
+    return XRegExp(`(?<=\\S)${closingWhitespacePattern}${delimiter}${endPattern}`, 'n');
 };
 
 export const blockCodeDelimiter = '```';
@@ -107,4 +107,4 @@ export const blockQuoteOpeningPattern = buildOpeningDelimiterRegExp(XRegExp.esca
     startAnchored: true,
 });
 
-export const blockQuoteClosingPattern = new XRegExp('\\n|$');
+export const blockQuoteClosingPattern = XRegExp('\\n|$');

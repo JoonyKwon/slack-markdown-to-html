@@ -6,7 +6,11 @@ const users = {};
 describe('emoji', () => {
   describe('static emoji', () => {
     it('should render replace an emoji', () => {
-      escapeForSlack(':wave:').should.equal('&#x1F44B');
+      escapeForSlack(':wave:').should.equal('&#x1F44B;');
+    });
+
+    it('should render replace an multiple emojis', () => {
+      escapeForSlack(':wave::wave:').should.equal('&#x1F44B;&#x1F44B;');
     });
   });
 
@@ -18,7 +22,7 @@ describe('emoji', () => {
     });
 
     it('should should be able to alias to a static emoji', () => {
-      escapeForSlack(':goodbye:', { customEmoji: { goodbye: 'alias:wave' } }).should.equal('&#x1F44B');
+      escapeForSlack(':goodbye:', { customEmoji: { goodbye: 'alias:wave' } }).should.equal('&#x1F44B;');
     });
 
     it('should replace multiple emojis', () => {

@@ -1,6 +1,4 @@
-// @ts-ignore
-import XRegExp from 'xregexp';
-
+import XRegExp from './xregexp';
 import {
     channelMentionPattern,
     commandPattern,
@@ -9,7 +7,8 @@ import {
     subteamCommandPattern,
     userMentionPattern,
 } from './patterns';
-import { ChannelMap, GroupMap, IControlSequenceOptions, UserMap } from './types';
+
+import type { ChannelMap, GroupMap, IControlSequenceOptions, UserMap } from './types';
 
 const escapeTags = (text: string) => ['&lt;', text.substring(1, text.length - 1), '&gt;'].join('');
 

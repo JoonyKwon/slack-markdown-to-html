@@ -1,7 +1,8 @@
 import replaceSlackdownControlSequences from './controlSequences';
 import replaceEmoji from './emoji';
 import replaceSlackdown from './markdown';
-import { IOptions } from './types';
+
+import type { IOptions } from './types';
 
 export const escapeForSlack = (text: string, options: IOptions = {}) => {
     const customEmoji = options.customEmoji || {};

@@ -1,4 +1,4 @@
-import { ReplacementWindow } from './markdown';
+import type { ReplacementWindow } from './markdown';
 
 export type EmojiMap = { [key: string]: string };
 export type UserMap = { [key: string]: string };
