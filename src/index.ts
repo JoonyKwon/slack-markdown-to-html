@@ -1,5 +1,5 @@
 import replaceSlackdownControlSequences from './controlSequences';
-import replaceEmoji from './emoji';
+import { replaceEmoji } from './emoji';
 import replaceSlackdown from './markdown';
 
 import type { IOptions } from './types';

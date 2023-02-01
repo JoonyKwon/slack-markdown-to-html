@@ -3,9 +3,11 @@
   "version": "0.0.2",
   "description": "Render Slack flavored markdown as HTML",
   "main": "dist/bundle.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "update-emoji": "node scripts/updateEmoji.js",
-    "build": "yarn update-emoji && yarn build:babel && yarn build:browserify",
+    "build": "yarn update-emoji && yarn build:tsc && yarn build:babel && yarn build:browserify",
+    "build:tsc": "tsc -d --declarationDir dist --emitDeclarationOnly",
     "build:babel": "babel src --out-dir dist --extensions .js,.ts",
     "build:browserify": "browserify dist/index.js --standalone slack-markdown-to-html -o dist/bundle.js",
     "test": "yarn run update-emoji && node_modules/.bin/mocha --require @babel/register",
@@ -38,6 +40,7 @@
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-typescript": "^7.6.0",
     "@babel/register": "^7.6.2",
+    "@types/node": "^18.11.18",
     "babel-eslint": "^10.0.3",
     "babel-preset-minify": "^0.5.1",
     "browserify": "^16.5.0",
@@ -121,5 +124,9 @@
     "hooks": {
       "pre-commit": "yarn run eslint"
     }
-  }
+  },
+  "files": [
+    "dist/bundle.js",
+    "dist/*.d.ts"
+  ]
 }
